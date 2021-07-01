@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+slack:
+  webhook-url: https://hooks.slack.com/services/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
