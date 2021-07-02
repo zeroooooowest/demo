@@ -8,4 +8,6 @@ spring:
       on-profile: dev
 
 slack:
-  webhook-url: https://hooks.slack.com/services/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
+#  webhook-url: https://hooks.slack.com/services/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
+  webhook-url: https://hooks.slack.com/services/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
+  token: xoxb-2235750933204-2231284460597-6fTSM9mZANnnEheb6Sb2k6ZI

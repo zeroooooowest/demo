@@ -15,26 +15,26 @@ class TutorialConfig {
 
     companion object: Log
 
-    @Bean
-    fun tutorialJob(): Job {
-        return jobBuilderFactory!!["tutorialJob"]
-            .start(tutorialStep1())
-            .next(tutorialStep2())
-            .build()
-    }
-
-    private fun tutorialStep1(): Step {
-
-    }
-
-    // step1 생략
-    @Bean
-    fun tutorialStep2(): Step {
-        return stepBuilderFactory.get("tutorialStep2")
-            .tasklet { contribution, chunkContext ->
-                logger.debug("I'm a tutorialStep2")
-                RepeatStatus.FINISHED
-            }
-            .build()
-    }
+//    @Bean
+//    fun tutorialJob(): Job {
+//        return jobBuilderFactory!!["tutorialJob"]
+//            .start(tutorialStep1())
+//            .next(tutorialStep2())
+//            .build()
+//    }
+//
+//    private fun tutorialStep1(): Step {
+//
+//    }
+//
+//    // step1 생략
+//    @Bean
+//    fun tutorialStep2(): Step {
+//        return stepBuilderFactory.get("tutorialStep2")
+//            .tasklet { contribution, chunkContext ->
+//                logger.debug("I'm a tutorialStep2")
+//                RepeatStatus.FINISHED
+//            }
+//            .build()
+//    }
 }
