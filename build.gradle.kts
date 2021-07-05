@@ -33,7 +33,8 @@ dependencies {
     // quartz
 //    implementation("org.springframework.boot:spring-boot-starter-quartz")
 
-    runtimeOnly("com.h2database:h2:1.4.200")
+//    runtimeOnly("com.h2database:h2:1.4.200")
+    runtimeOnly("mysql:mysql-connector-java:8.0.25")
 
     // shedlock
     implementation("net.javacrumbs.shedlock:shedlock-spring:4.24.0")

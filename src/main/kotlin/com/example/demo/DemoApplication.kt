@@ -6,6 +6,7 @@ import org.jfree.chart.ChartUtils
 import org.jfree.chart.JFreeChart
 import org.jfree.data.category.CategoryDataset
 import org.jfree.data.general.DatasetUtils
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -13,10 +14,11 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import java.io.File
 
+@EnableBatchProcessing
 @SpringBootApplication
 class DemoApplication {
 
-    @Bean
+//    @Bean
     fun commandLineRunner(
         @Autowired slackService: SlackService,
     ): CommandLineRunner {
