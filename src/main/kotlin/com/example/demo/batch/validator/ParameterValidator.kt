@@ -58,30 +58,30 @@ class ParameterValidator
 //        return validator
 //    }
 
-    @Bean
-    fun validator(): CompositeJobParametersValidator {
-        val validator = CompositeJobParametersValidator()
-
-        val defaultJobParametersValidator = DefaultJobParametersValidator(
-            arrayOf("fileName"), arrayOf("name", "run.id")
-        )
-
-        defaultJobParametersValidator.afterPropertiesSet()
-
-        validator.setValidators(
-            listOf(
-                JobParametersValidator { parameters ->
-                    val fileName = parameters?.getString("fileName")
-                    if (!StringUtils.hasText(fileName)) {
-                        throw JobParametersInvalidException("fileName parameter is missing")
-                    } else if (!StringUtils.endsWithIgnoreCase(fileName, "csv")) {
-                        throw JobParametersInvalidException("fileName parameter does not use the csv file extension")
-                    }
-                },
-                defaultJobParametersValidator
-            )
-        )
-        return validator
-    }
+//    @Bean
+//    fun validator(): CompositeJobParametersValidator {
+//        val validator = CompositeJobParametersValidator()
+//
+//        val defaultJobParametersValidator = DefaultJobParametersValidator(
+//            arrayOf("fileName"), arrayOf("name", "run.id")
+//        )
+//
+//        defaultJobParametersValidator.afterPropertiesSet()
+//
+//        validator.setValidators(
+//            listOf(
+//                JobParametersValidator { parameters ->
+//                    val fileName = parameters?.getString("fileName")
+//                    if (!StringUtils.hasText(fileName)) {
+//                        throw JobParametersInvalidException("fileName parameter is missing")
+//                    } else if (!StringUtils.endsWithIgnoreCase(fileName, "csv")) {
+//                        throw JobParametersInvalidException("fileName parameter does not use the csv file extension")
+//                    }
+//                },
+//                defaultJobParametersValidator
+//            )
+//        )
+//        return validator
+//    }
 
 }

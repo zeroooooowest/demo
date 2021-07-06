@@ -4,9 +4,8 @@ import com.example.demo.Log
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
+import org.springframework.batch.core.configuration.annotation.JobScope
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
-import org.springframework.batch.core.job.CompositeJobParametersValidator
-import org.springframework.batch.core.job.DefaultJobParametersValidator
 import org.springframework.batch.core.step.tasklet.Tasklet
 import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,44 +13,36 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
-class HelloWorldJobConfiguration(
+class ExecutionContextConfiguration(
     @Autowired private val jobBuilderFactory: JobBuilderFactory,
     @Autowired private val stepBuilderFactory: StepBuilderFactory,
 ) {
-
     companion object : Log
 
     @Bean
-    fun job(): Job = jobBuilderFactory.get("basicJob")
-        .start(step1())
+    fun ecJob(): Job = jobBuilderFactory.get("ecJob")
+        .start(ecStep1())
         .build()
 
     @Bean
-    fun step1(): Step = stepBuilderFactory.get("step1")
+    @JobScope
+    fun ecStep1(): Step = stepBuilderFactory.get("ecStep1")
         .tasklet(helloWorldTasklet())
         .build()
 
     @Bean
     fun helloWorldTasklet(): Tasklet = Tasklet { contribution, chunkContext ->
-        val name = chunkContext.stepContext.jobParameters
-            .getOrDefault("name", "zerowest")
-                as String
+        val name = chunkContext.stepContext
+            .jobParameters
+            .get("name") as String
 
-        logger.info("Hello, ${name}!")
+        val jobContext = chunkContext.stepContext
+            .stepExecution
+            .executionContext
+        jobContext.put("name", name)
+        logger.info("Hello, $name")
+
         RepeatStatus.FINISHED
     }
 
-    @Bean
-    fun validator(): CompositeJobParametersValidator{
-        val validator = CompositeJobParametersValidator()
-
-        val defaultJobParametersValidator = DefaultJobParametersValidator(
-            arrayOf("fileName"), arrayOf("name", "currentDate")
-        )
-
-        defaultJobParametersValidator.afterPropertiesSet()
-        validator.setValidators(
-            listOf()
-        )
-    }
 }

@@ -5,6 +5,7 @@ import org.springframework.batch.core.ExitStatus
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
+import org.springframework.batch.core.configuration.annotation.JobScope
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.beans.factory.annotation.Autowired
@@ -38,6 +39,7 @@ class StepNextConditionalJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun conditionalJobStep1(): Step {
         return stepBuilderFactory.get("conditionalJobStep1")
             .tasklet { contribution, chunkContext ->
@@ -48,6 +50,7 @@ class StepNextConditionalJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun conditionalJobStep2(): Step {
         return stepBuilderFactory.get("conditionalJobStep2")
             .tasklet { contribution, chunkContext ->
@@ -57,6 +60,7 @@ class StepNextConditionalJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun conditionalJobStep3(): Step {
         return stepBuilderFactory.get("conditionalJobStep3")
             .tasklet { contribution, chunkContext ->

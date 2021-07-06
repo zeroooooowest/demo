@@ -4,6 +4,7 @@ import com.example.demo.Log
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
+import org.springframework.batch.core.configuration.annotation.JobScope
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
 import org.springframework.batch.repeat.RepeatStatus
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,6 +29,7 @@ class StepNextJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun step1(): Step {
         return stepBuilderFactory.get("step1")
             .tasklet { contribution, chunkContext ->
@@ -37,6 +39,7 @@ class StepNextJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun step2(): Step {
         return stepBuilderFactory.get("step2")
             .tasklet { contribution, chunkContext ->
@@ -46,6 +49,7 @@ class StepNextJobConfiguration(
     }
 
     @Bean
+    @JobScope
     fun step3(): Step {
         return stepBuilderFactory.get("step3")
             .tasklet { contribution, chunkContext ->
